@@ -9,8 +9,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var listItems = ["item1", "item2", "item3", "item4","item5"]
+    
     var body: some View {
-        Text("Hello World")
+        NavigationView {
+            List {
+                ForEach(listItems, id: \.self) { item  in
+                    Text(item)
+                }.onDelete(perform: self.deleteItem)
+            }
+        .navigationBarTitle(Text("DELETE ROWS"))
+        .navigationBarItems(trailing: EditButton())
+        }
+    }
+    
+    private func deleteItem(at indexSet: IndexSet) {
+        //self.listItems.remove(at: indexSet)
+        self.listItems.remove(atOffsets: indexSet)
     }
 }
 
